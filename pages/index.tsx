@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main>
       <Center h='100vh' color='white'>
-        <Button colorScheme='blue' onClick={() => handler('/result')}>Button</Button>
+        <Button colorScheme='blue' onClick={() => handler('/result')}>スタート</Button>
       </Center>
     </main>
     
