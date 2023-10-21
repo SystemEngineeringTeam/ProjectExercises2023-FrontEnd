@@ -3,7 +3,7 @@
 export default function Result() {
     return (
         <main>
-            hogehoge
+            hoge
         </main>
     )
 }
