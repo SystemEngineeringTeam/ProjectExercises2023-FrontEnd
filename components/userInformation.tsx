@@ -1,22 +1,36 @@
 import { Box, Button, ButtonGroup } from '@chakra-ui/react'
 import { text } from 'stream/consumers';
 
-export const UserInformation = (props: {top?: string; bottom?: string; left?: string; right?: string; face: string; position: string; pulse: string}) => {
+export const UserInformation = (props: {face: string; position: string; pulse: string}) => {
 
-    const {top, bottom, left, right, face, position, pulse} = props;
+    const {face, position, pulse} = props;
 
     const contentData = {
-        top,
-        bottom,
-        left,
-        right,
         face,
         position,
         pulse,
     }
 
+    //set user information position by user position data
+    const userInformationPosition = {top:"undefined", bottom:"undefined", left:"undefined", right:"undefined"}
+    if(contentData.position === "北"){
+        userInformationPosition.top = "0"
+        userInformationPosition.left = "10"
+    } else if(contentData.position === "東"){
+        userInformationPosition.top = "0"
+        userInformationPosition.right = "20" 
+    } else if (contentData.position === "西"){
+        userInformationPosition.bottom = "0"
+        userInformationPosition.left = "10"
+    } else if (contentData.position === "南"){
+        userInformationPosition.bottom = "0"
+        userInformationPosition.right = "20"
+    } else {
+        console.log("position data is out of range")
+    }
+
     return (
-        <Box pos="absolute" top={top} bottom={bottom} left={left} right={right} fontSize="120px" textAlign="center" display="flex">
+        <Box pos="absolute" top={userInformationPosition.top} bottom={userInformationPosition.bottom} left={userInformationPosition.left} right={userInformationPosition.right} fontSize="120px" textAlign="center" display="flex">
             <Box>
                 <div>{face}</div>
             </Box>
@@ -26,14 +40,4 @@ export const UserInformation = (props: {top?: string; bottom?: string; left?: st
             </Box>
         </Box>
     )
-
-    {/* <Box pos="absolute" top="0" left="10" fontSize="120px" textAlign="center" display="flex">
-        <Box>
-          <div>😃</div>
-        </Box>
-        <Box pos="relative" top="8" left="10" fontSize="40px">
-          <p>北</p>
-          <p>120</p>
-        </Box>
-      </Box> */}
 }
