@@ -3,7 +3,7 @@ import React from "react";
 import axios, { AxiosResponse } from "axios";
 
 // モックサーバーのURL db.json
-const membersUrl = "http://localhost:3100/members";
+const membersUrl = "https://heartbeat.sysken.net/api/v1/get_bpm/north";
 
 type Member = {
     id: number;
@@ -20,7 +20,7 @@ export const Http: React.VFC = () => {
   const [members, setMembers] = React.useState<Member[]>([]);
 
   const onFetchClick = async () => {
-    const response: AxiosResponse<Member[]> = await axios.get("https://heartbeat.sysken.net/api/v1/get_bpm/north");
+    const response: AxiosResponse<Member[]> = await axios.get(membersUrl);
     setMembers(response.data);
   };
 
@@ -35,10 +35,9 @@ export const Http: React.VFC = () => {
             {members.map((member) => (
               <li
                 key={member.id}
-              >{`[id]=${member.id} [azimuth]=${member.azimuth}`}</li>
+              >{`[id]=${member.id} [azimuth]=${member.azimuth} [bpm]=${member.bpm} [time]=${member.time}`}</li>
             ))}
           </ul>
-          <p> {members.length}人</p>
         </>
       )}
     </>
