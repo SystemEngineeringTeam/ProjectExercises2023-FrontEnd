@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom'
+import Router from 'next/router'
+
+import { UserInformation } from '../components/userInformation'
+import { Backend } from './api/backend'
 
 import { Button } from '@chakra-ui/react'
 import { Center } from '@chakra-ui/react'
-import Router from 'next/router'
-import { UserInformation } from '../components/userInformation'
-import { Http } from '../components/http'
-
 
 
 
@@ -16,7 +15,6 @@ export default function Home() {
   const handler = (path: string) => {
     Router.push(path)
   }
-
 
   const [isStart, setIsStart] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("スタート");
@@ -36,6 +34,10 @@ export default function Home() {
   };
 
   const startFC = () => {
+    const backend = new Backend();
+    backend.start();
+    //1秒ごとに関数を呼び出す
+    
 
   };
 
