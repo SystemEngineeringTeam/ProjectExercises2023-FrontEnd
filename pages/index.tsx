@@ -12,7 +12,7 @@ type BoardSurface = {
   url: string; //画像のurl
 };
 
-const azimuths = [
+const azimuths:string[] = [
   "north", "east", "west", "south"
 ];
 
@@ -43,7 +43,7 @@ export default function Home() {
     "west": 0,
     "south": 0
   });
-  const [emotionList, setEmotionList] = useState<{ [key: string]: String }>({
+  const [emotionList, setEmotionList] = useState<{ [key: string]: string }>({
     "north": "normal",
     "east": "normal",
     "west": "normal",
@@ -76,7 +76,7 @@ export default function Home() {
         "west": 0,
         "south": 0
       };
-      const newEmotionList: { [key: string]: String } = {
+      const newEmotionList: { [key: string]: string } = {
         "north": "normal",
         "east": "normal",
         "west": "normal",
@@ -85,7 +85,7 @@ export default function Home() {
       for (const azimuth of azimuths) {
         const { bpm, emotion } = await backend.getData(azimuth);
         newBpmList[azimuth] = bpm;
-        newEmotionList[azimuth] = emotion;
+        newEmotionList[azimuth] = emotion.toString();
       }
       setBpmList(newBpmList);
       setEmotionList(newEmotionList);
@@ -102,13 +102,20 @@ export default function Home() {
     handler('/result');
   };
 
+  const faceList : { [ key: string]: string} = {
+    "normal": "😀",
+    "surprise": "😱",
+    "nervous": "😬",
+    "relief": "😊",
+  }
+
 
   return (
     <main>
-      <UserInformation face={emotionList["north"]} position="北" pulse={bpmList["north"]}></UserInformation>
-      <UserInformation face={emotionList["east"]} position="東" pulse={bpmList["east"]}></UserInformation>
-      <UserInformation face={emotionList["west"]} position="西" pulse={bpmList["west"]}></UserInformation>
-      <UserInformation face={emotionList["south"]} position="南" pulse={bpmList["south"]}></UserInformation>
+      <UserInformation face={faceList[emotionList["north"]]} position="北" pulse={bpmList["north"]}></UserInformation>
+      <UserInformation face={faceList[emotionList["east"]]} position="東" pulse={bpmList["east"]}></UserInformation>
+      <UserInformation face={faceList[emotionList["west"]]} position="西" pulse={bpmList["west"]}></UserInformation>
+      <UserInformation face={faceList[emotionList["south"]]} position="南" pulse={bpmList["south"]}></UserInformation>
       <Center h="100vh" color="white">
         <Button height={12} colorScheme='cyan' paddingX='48px' fontSize="24" borderRadius={16} onClick={() => handleClick()}>
           {buttonMessage}
