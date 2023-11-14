@@ -12,7 +12,7 @@ type BoardSurface = {
   url: string; //画像のurl
 };
 
-const azimuths:string[] = [
+const azimuths: string[] = [
   "north", "east", "west", "south"
 ];
 
@@ -25,11 +25,11 @@ export default function Home() {
     //画像のURL
     const graphUrl = response.data.url;
     const query = {
-      url:graphUrl
+      url: graphUrl
     }
 
     //URL遷移
-    Router.push({pathname:path,query:query},path);
+    Router.push({ pathname: path, query: query }, path);
   };
 
   //useStateの定義
@@ -85,7 +85,7 @@ export default function Home() {
       for (const azimuth of azimuths) {
         const { bpm, emotion } = await backend.getData(azimuth);
         newBpmList[azimuth] = bpm;
-        newEmotionList[azimuth] = emotion.toString();
+        newEmotionList[azimuth] = emotion;
       }
       setBpmList(newBpmList);
       setEmotionList(newEmotionList);
@@ -102,13 +102,14 @@ export default function Home() {
     handler('/result');
   };
 
-  const faceList : { [ key: string]: string} = {
+  const faceList: { [key: string]: string } = {
     "normal": "😀",
     "surprise": "😱",
     "nervous": "😬",
     "relief": "😊",
   }
 
+  // console.log(emotionList);
 
   return (
     <main>

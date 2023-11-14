@@ -1,23 +1,23 @@
 import axios from "axios";
 
 type BoardSurface = {
-    "FinishTIme": String;
-    "StartTime": String;
+    "FinishTIme": string;
+    "StartTime": string;
 }
 type HeartRateData = {
     "id": Number;
     "board_surface_id": Number;
-    "time": String;
-    "azimuth": String;
+    "time": string;
+    "azimuth": string;
     "bpm": Number;
 }
 
 type UserStatus = {
-    "Azimuth": String;
+    "Azimuth": string;
     "BoardSurfaceId": Number;
-    "Status": String;
+    "status": string;
     "UsersStatusId": Number;
-    "time": String;
+    "time": string;
 }
 
 export class Backend {
@@ -29,8 +29,8 @@ export class Backend {
 
     //データの取得
     async getData(azimuth: string) {
-        let bpm;
-        let emotion;
+        let bpm = 0;
+        let emotion: string = "";
         try {
             //取得
             const resHeartRateData = await axios.get<HeartRateData>("https://heartbeat.sysken.net/api/v1/get_bpm/" + azimuth);
@@ -38,7 +38,8 @@ export class Backend {
 
             //取り出し
             bpm = Number(resHeartRateData.data.bpm);
-            emotion = resUserStatus.data.Status;
+            emotion = resUserStatus.data.status;
+            console.log(emotion);
         } catch (e) {
             bpm = 0;
             emotion = "normal";
