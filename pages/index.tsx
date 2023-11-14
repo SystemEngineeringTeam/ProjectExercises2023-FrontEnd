@@ -32,6 +32,7 @@ export default function Home() {
   //useStateの定義
   const [isStart, setIsStart] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("スタート");
+  const [nowIntervalId, setNowIntervalId] = useState<NodeJS.Timeout>();
 
   const [bpmList, setBpmList] = useState<BpmList>({
     "north": 0,
@@ -86,12 +87,16 @@ export default function Home() {
       setBpmList(newBpmList);
       setEmotionList(newEmotionList);
     }, 1000);
-    
-    return () => clearInterval(intervalId);
+
+
+    setNowIntervalId(intervalId);
+    // return () => clearInterval(intervalId);
   };
 
   const toResultFC = () => {
-    handler('/result')
+    console.log(nowIntervalId)
+    clearInterval(nowIntervalId);
+    handler('/result');
   };
 
 
