@@ -2,6 +2,7 @@ import { Button } from '@chakra-ui/react'
 import { Center } from '@chakra-ui/react'
 import Router from 'next/router'
 import { UserInformation } from '../components/userInformation'
+import { Http } from '../components/http'
 
 export default function Home() {
 
@@ -22,6 +23,5 @@ export default function Home() {
         </Button>
       </Center>
     </main>
-
   )
 }
