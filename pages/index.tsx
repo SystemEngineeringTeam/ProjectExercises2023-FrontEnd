@@ -18,9 +18,12 @@ export default function Home() {
     )
     //画像のURL
     const graphUrl = response.data.url;
+    const query = {
+      url:graphUrl
+    }
 
     //URL遷移
-    Router.push(path);
+    Router.push({pathname:path,query:query},path);
   };
 
   return (
