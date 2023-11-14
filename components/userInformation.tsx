@@ -1,5 +1,4 @@
-import { Box, Button, ButtonGroup } from '@chakra-ui/react'
-import { text } from 'stream/consumers';
+import { Box } from '@chakra-ui/react'
 
 export const UserInformation = (props: {face: string; position: string; pulse: string}) => {
 
