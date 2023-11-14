@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images:{
-    domains:['img.esa.io'],
+    domains:[
+      'img.esa.io',
+      'heartbeat.sysken.net'
+    ],
   },
 }
 
