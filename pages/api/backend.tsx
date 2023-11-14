@@ -4,15 +4,15 @@ type BoardSurface = {
     "FinishTIme": String;
     "StartTime": String;
 }
-type BoardSurface = {
-    "FinishTIme": String;
-    "StartTime": String;
-}
+// type BoardSurface = {
+//     "FinishTIme": String;
+//     "StartTime": String;
+// }
 
-type BoardSurface = {
-    "FinishTIme": String;
-    "StartTime": String;
-}
+// type BoardSurface = {
+//     "FinishTIme": String;
+//     "StartTime": String;
+// }
 
 export class Backend {
     //コンストラクタを定義
@@ -21,5 +21,5 @@ export class Backend {
         const res = await axios.post<BoardSurface>("https://heartbeat.sysken.net/api/v1/start");
     }
 
-    
+
 }
