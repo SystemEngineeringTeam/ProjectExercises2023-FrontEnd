@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react'
 
-export const UserInformation = (props: {face: string; position: string; pulse: string}) => {
+export const UserInformation = (props: { face: String; position: string; pulse: number }) => {
 
-    const {face, position, pulse} = props;
+    const { face, position, pulse } = props;
 
     const contentData = {
         face,
@@ -11,17 +11,17 @@ export const UserInformation = (props: {face: string; position: string; pulse: s
     }
 
     //set user information position by user position data
-    const userInformationPosition = {top:"undefined", bottom:"undefined", left:"undefined", right:"undefined"}
-    if(contentData.position === "北"){
+    const userInformationPosition = { top: "undefined", bottom: "undefined", left: "undefined", right: "undefined" }
+    if (contentData.position === "北") {
         userInformationPosition.top = "0"
         userInformationPosition.left = "10"
-    } else if(contentData.position === "東"){
+    } else if (contentData.position === "東") {
         userInformationPosition.top = "0"
-        userInformationPosition.right = "20" 
-    } else if (contentData.position === "西"){
+        userInformationPosition.right = "20"
+    } else if (contentData.position === "西") {
         userInformationPosition.bottom = "0"
         userInformationPosition.left = "10"
-    } else if (contentData.position === "南"){
+    } else if (contentData.position === "南") {
         userInformationPosition.bottom = "0"
         userInformationPosition.right = "20"
     } else {
