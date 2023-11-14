@@ -6,18 +6,19 @@ import { Http } from "../components/http";
 import axios, { AxiosResponse } from "axios";
 
 type BoardSurface = {
-  StartTime: string;
   FinishTime: string;
-  url: string;
+  url: string; //画像のurl
 };
 
 export default function Home() {
   const handler = async (path: string) => {
-    //TODO グラフの画像を受け取る
-    const response: AxiosResponse<BoardSurface[]> = await axios.post(
+    //グラフの画像をaxiosを使用して受け取る
+    const response = await axios.post<BoardSurface>(
       "https://heartbeat.sysken.net/api/v1/finish"
-    );
-    console.log(response.data);
+    )
+    //画像のURL
+    const graphUrl = response.data.url;
+
     //URL遷移
     Router.push(path);
   };
