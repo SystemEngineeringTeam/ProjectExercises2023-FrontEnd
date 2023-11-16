@@ -64,9 +64,15 @@ export default function Home() {
     setIsStart(!isStart);
   };
 
-  const startFC = () => {
+  const startFC = async () => {
     const backend = new Backend();
-    backend.start();
+    //バックエンドにスタートしたことを伝える
+    const isStart = await backend.start();
+    //スタートできる状態かチェック
+    if (!isStart) {
+      alert("スタートできませんでした");
+      return;
+    }
     //1秒ごとに関数を呼び出す
     const intervalId = setInterval(async () => {
       //上書き用データ
@@ -83,7 +89,7 @@ export default function Home() {
         "south": "normal"
       };
       for (const azimuth of azimuths) {
-        const { bpm, emotion } = await backend.getData(azimuth);
+        const {bpm, emotion} = await backend.getData(azimuth);
         newBpmList[azimuth] = bpm;
         newEmotionList[azimuth] = emotion;
       }
