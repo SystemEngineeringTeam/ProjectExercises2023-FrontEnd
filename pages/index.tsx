@@ -5,7 +5,7 @@ import { UserInformation } from "../components/userInformation";
 import axios from "axios";
 import React, { useState } from 'react';
 import { Backend } from './api/backend'
-
+import LoadingLayer from "../components/loadingLayer";
 
 type BoardSurface = {
   FinishTime: string;
@@ -18,6 +18,8 @@ const azimuths: string[] = [
 
 export default function Home() {
   const handler = async (path: string) => {
+    //ローディング開始
+    setIsLoading(true);
     //グラフの画像をaxiosを使用して受け取る
     const response = await axios.post<BoardSurface>(
       "https://heartbeat.sysken.net/api/v1/finish"
@@ -32,6 +34,8 @@ export default function Home() {
     Router.push({ pathname: path, query: query }, path);
     //遷移後にボタンを押せるようにする
     setBtnIsDisabled(false);
+    //ローディング終了
+    setIsLoading(false);
   };
 
   //useStateの定義
@@ -39,6 +43,7 @@ export default function Home() {
   const [buttonMessage, setButtonMessage] = useState("スタート");
   const [nowIntervalId, setNowIntervalId] = useState<NodeJS.Timeout>();
   const [btnIsDisabled, setBtnIsDisabled] = useState(false); //初期状態はボタンが押せる状態
+  const [isLoading, setIsLoading] = useState(false); //初期状態はローディングしていない状態
 
   const [bpmList, setBpmList] = useState<BpmList>({
     "north": 0,
@@ -111,7 +116,7 @@ export default function Home() {
 
   };
 
-  const toResultFC = () => {
+  const toResultFC = async () => {
     //ボタンを押せなくする
     setBtnIsDisabled(true);
     clearInterval(nowIntervalId);
@@ -129,15 +134,18 @@ export default function Home() {
 
   return (
     <main>
-      <UserInformation face={faceList[emotionList["north"]]} position="北" pulse={bpmList["north"]}></UserInformation>
-      <UserInformation face={faceList[emotionList["east"]]} position="東" pulse={bpmList["east"]}></UserInformation>
-      <UserInformation face={faceList[emotionList["west"]]} position="西" pulse={bpmList["west"]}></UserInformation>
-      <UserInformation face={faceList[emotionList["south"]]} position="南" pulse={bpmList["south"]}></UserInformation>
-      <Center h="100vh" color="white">
-        <Button height={12} colorScheme='cyan' paddingX='48px' fontSize="24" borderRadius={16} onClick={() => handleClick()} isDisabled={btnIsDisabled}>
-          {buttonMessage}
-        </Button>
-      </Center>
+      <LoadingLayer isLoading={isLoading}/>
+      <div>
+        <UserInformation face={faceList[emotionList["north"]]} position="北" pulse={bpmList["north"]}></UserInformation>
+        <UserInformation face={faceList[emotionList["east"]]} position="東" pulse={bpmList["east"]}></UserInformation>
+        <UserInformation face={faceList[emotionList["west"]]} position="西" pulse={bpmList["west"]}></UserInformation>
+        <UserInformation face={faceList[emotionList["south"]]} position="南" pulse={bpmList["south"]}></UserInformation>
+        <Center h="100vh" color="white">
+          <Button height={12} colorScheme='cyan' paddingX='48px' fontSize="24" borderRadius={16} onClick={() => handleClick()} isDisabled={btnIsDisabled}>
+            {buttonMessage}
+          </Button>
+        </Center>
+      </div>
     </main>
   );
 }

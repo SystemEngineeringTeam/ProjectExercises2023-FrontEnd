@@ -12,16 +12,16 @@ export const UserInformation = (props: { face: String; position: string; pulse: 
 
     //set user information position by user position data
     const userInformationPosition = { top: "undefined", bottom: "undefined", left: "undefined", right: "undefined" }
-    if (contentData.position === "北") {
+    if (contentData.position === "東") {
         userInformationPosition.top = "0"
         userInformationPosition.left = "10"
-    } else if (contentData.position === "東") {
+    } else if (contentData.position === "北") {
         userInformationPosition.top = "0"
         userInformationPosition.right = "20"
-    } else if (contentData.position === "西") {
+    } else if (contentData.position === "南") {
         userInformationPosition.bottom = "0"
         userInformationPosition.left = "10"
-    } else if (contentData.position === "南") {
+    } else if (contentData.position === "西") {
         userInformationPosition.bottom = "0"
         userInformationPosition.right = "20"
     } else {

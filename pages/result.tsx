@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSpring, animated } from "react-spring";
 
+
 export default function Result() {
   const router = useRouter();
 
@@ -31,7 +32,16 @@ export default function Result() {
     reverse: true,
   });
 
+  const bounceProps = useSpring({
+    from: { transform: "translateY(0px)" },
+    to: { transform: "translateY(-20px)" },
+    config: { duration: 500 },
+    reset: true,
+    reverse: true,
+  });
+
   return (
+
     <main style={{ backgroundColor: "#add8e6", height: 800 }}>
       <Stack h="130vh" align="center" justify="center" spacing={120}>
         <Box style={{ marginTop: "100px" }}>
@@ -53,6 +63,7 @@ export default function Result() {
           </Button>
         </Box>
       </Stack>
+      
     </main>
   );
 }
