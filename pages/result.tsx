@@ -32,14 +32,6 @@ export default function Result() {
     reverse: true,
   });
 
-  const bounceProps = useSpring({
-    from: { transform: "translateY(0px)" },
-    to: { transform: "translateY(-20px)" },
-    config: { duration: 500 },
-    reset: true,
-    reverse: true,
-  });
-
   return (
 
     <main style={{ backgroundColor: "#add8e6", height: 800 }}>
@@ -47,7 +39,7 @@ export default function Result() {
         <Box style={{ marginTop: "100px" }}>
             <animated.img
             style={{
-             ...bounceProps,
+              ...bounceProps,
               borderRadius: "10px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Add shadow here
             }}
