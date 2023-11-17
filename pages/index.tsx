@@ -125,9 +125,15 @@ export default function Home() {
 
   const faceList: { [key: string]: string } = {
     "normal": "😀",
+    "": "😀",
     "surprise": "😱",
-    "nervous": "😬",
+    "nervous": "😨",
     "relief": "😊",
+    "normal\n": "😀",
+    "\n": "😀",
+    "surprise\n": "😱",
+    "nervous\n": "😨",
+    "relief\n": "😊",
   }
 
   // console.log(emotionList);

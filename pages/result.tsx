@@ -51,7 +51,7 @@ export default function Result() {
         </Box>
         <Box>
           <Button colorScheme="blue" onClick={() => handler("/")} bottom={120}>
-            homeに戻る
+            ホームに戻る
           </Button>
         </Box>
       </Stack>
