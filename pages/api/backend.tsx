@@ -1,8 +1,8 @@
 import axios from "axios";
 
 type BoardSurface = {
-    "FinishTIme": string;
-    "StartTime": string;
+    "finish_time": string;
+    "start_time": string;
 }
 type HeartRateData = {
     "id": Number;
@@ -13,10 +13,10 @@ type HeartRateData = {
 }
 
 type UserStatus = {
-    "Azimuth": string;
-    "BoardSurfaceId": Number;
+    "azimuth": string;
+    "board_surface_id": Number;
     "status": string;
-    "UsersStatusId": Number;
+    "users_status_id": Number;
     "time": string;
 }
 
