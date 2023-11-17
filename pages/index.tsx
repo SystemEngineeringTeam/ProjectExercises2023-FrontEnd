@@ -30,12 +30,15 @@ export default function Home() {
 
     //URL遷移
     Router.push({ pathname: path, query: query }, path);
+    //遷移後にボタンを押せるようにする
+    setBtnIsDisabled(false);
   };
 
   //useStateの定義
   const [isStart, setIsStart] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("スタート");
   const [nowIntervalId, setNowIntervalId] = useState<NodeJS.Timeout>();
+  const [btnIsDisabled, setBtnIsDisabled] = useState(false); //初期状態はボタンが押せる状態
 
   const [bpmList, setBpmList] = useState<BpmList>({
     "north": 0,
@@ -65,6 +68,9 @@ export default function Home() {
   };
 
   const startFC = async () => {
+    //少なくとも5秒間ボタンを押せなくする
+    setBtnIsDisabled(true);
+
     const backend = new Backend();
     //バックエンドにスタートしたことを伝える
     const isStart = await backend.start();
@@ -97,13 +103,17 @@ export default function Home() {
       setEmotionList(newEmotionList);
     }, 1000);
 
-
     setNowIntervalId(intervalId);
-    // return () => clearInterval(intervalId);
+    //5秒後にボタンを押せるようにする
+    setTimeout(() => {
+      setBtnIsDisabled(false);
+    }, 5000);
+
   };
 
   const toResultFC = () => {
-    console.log(nowIntervalId)
+    //ボタンを押せなくする
+    setBtnIsDisabled(true);
     clearInterval(nowIntervalId);
     handler('/result');
   };
@@ -124,7 +134,7 @@ export default function Home() {
       <UserInformation face={faceList[emotionList["west"]]} position="西" pulse={bpmList["west"]}></UserInformation>
       <UserInformation face={faceList[emotionList["south"]]} position="南" pulse={bpmList["south"]}></UserInformation>
       <Center h="100vh" color="white">
-        <Button height={12} colorScheme='cyan' paddingX='48px' fontSize="24" borderRadius={16} onClick={() => handleClick()}>
+        <Button height={12} colorScheme='cyan' paddingX='48px' fontSize="24" borderRadius={16} onClick={() => handleClick()} isDisabled={btnIsDisabled}>
           {buttonMessage}
         </Button>
       </Center>

@@ -18,6 +18,7 @@ export default function Result() {
   const router = useRouter();
 
   const handler = (path: string) => {
+
     Router.push(path);
   };
 
