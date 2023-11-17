@@ -11,6 +11,7 @@ import { Center, Square, Circle } from "@chakra-ui/react";
 import Router from "next/router";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSpring, animated } from 'react-spring';
 
 
 export default function Result() {
@@ -23,11 +24,21 @@ export default function Result() {
 
   const imageUrl = typeof router?.query.url === 'string' ? router.query.url : '';
 
+  const bounceProps = useSpring({
+    from: { transform: "translateY(0px)" },
+    to: { transform: "translateY(-20px)" },
+    config: { duration: 500 },
+    reset: true,
+    reverse: true,
+  });
+
   return (
     <main>
-      <Stack h="100vh" align="center" justify="center" spacing={120}>
+      <div style={{ backgroundColor: "#add8e6"}}></div>
+      <Stack h="10vh" align="center" justify="center" spacing={120}>
         <Box>
-          <Image
+          <animated.img
+            style={bounceProps}
             src={imageUrl}
             width={500}
             height={500}
@@ -36,10 +47,11 @@ export default function Result() {
         </Box>
         <Box>
           <Button colorScheme="blue" onClick={() => handler("/")}>
-            home
+            homeに戻る
           </Button>
         </Box>
       </Stack>
+      
     </main>
   );
 }
