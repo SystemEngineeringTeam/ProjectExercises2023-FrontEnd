@@ -21,11 +21,25 @@ type UserStatus = {
 }
 
 export class Backend {
-    //コンストラクタを定義
-    async start() {
-        //送るだけ
-        const res = await axios.post<BoardSurface>("https://heartbeat.sysken.net/api/v1/start");
+    //バックエンドにスタートを送る
+    async start() : Promise<boolean> {
+        try {
+            //送るだけ
+            const res = await axios.post<BoardSurface>("https://heartbeat.sysken.net/api/v1/start");
+        } catch (e) {
+            //送信に失敗したとき、フィニッシュを送信してから再度スタートの送信を試みる
+            try {
+                const finishRes = await axios.post<BoardSurface>("https://heartbeat.sysken.net/api/v1/finish");
+                const startRes = await axios.post<BoardSurface>("https://heartbeat.sysken.net/api/v1/start");
+            } catch (e) {
+                //それでもダメならfalseを返す
+                return false;
+            }
+        }
+        return true;
     }
+
+
 
     //データの取得
     async getData(azimuth: string) {
